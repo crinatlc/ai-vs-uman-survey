@@ -135,15 +135,19 @@
   }
 
   document.getElementById("demographics").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const age = document.getElementById("age").value;
-    const gender = document.getElementById("gender").value;
-    if (!age || !gender) return;
-    participantInfo.age = age;
-    participantInfo.gender = gender;
-    document.getElementById("demographicForm").classList.add("hidden");
-    document.getElementById("Step1").classList.remove("hidden");
-  });
+  e.preventDefault();
+  const age = document.getElementById("age").value;
+  const gender = document.getElementById("gender").value;
+
+  if (!age || !gender) {
+    alert("Te rog să completezi toate câmpurile pentru a continua.");
+    return;
+  }
+
+  document.getElementById("demographicForm").classList.add("hidden");
+  document.getElementById("step1").classList.remove("hidden");
+});
+
   function startSurvey() {
     document.getElementById("step2").classList.remove("hidden");
     ["scale1", "scale2", "scale3", "scale4"].forEach(id => createScale(id));
