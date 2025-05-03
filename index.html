@@ -42,15 +42,13 @@
       <option value="">Selectează</option>
       <option value="feminin">Feminin</option>
       <option value="masculin">Masculin</option>
-      <option value="altul">Altul</option>
-      <option value="nu_doresc">Nu doresc să răspund</option>
     </select><br><br>
 
     <button type="submit">Continuă</button>
   </form>
 </div>
 
-<div id="step1" class="hidden">
+<div id="step1">
   <h2>Bine ai venit!</h2>
   <p id="conditionText"></p>
   <button onclick="startSurvey()">Începe</button>
@@ -114,8 +112,8 @@
   const shuffledImages = allImages.sort(() => Math.random() - 0.5);
   const conditionAssigned = Math.random() < 0.5 ? "uman" : "ai";
   const conditionText = conditionAssigned === "uman" ?
-    "Imaginile pe care le vei vedea au fost create de un artist uman." :
-    "Imaginile pe care le vei vedea au fost create de inteligență artificială (AI).";
+    "Vă vor fi prezentate 5 imagini create de diferiți artiști (umani). Vă rugăm să le evaluați. Nu există răspunsuri corecte sau greșite, doar părerea dvs. contează. Răspundeți spontan, așa cum simțiți." :
+    "Vă vor fi prezentate 5 imagini generate cu ajutorul Inteligenței Artificiale (IA). Vă rugăm să le evaluați. Nu există răspunsuri corecte sau greșite, doar părerea dvs. contează. Răspundeți spontan, așa cum simțiți.";
 
   document.getElementById("conditionText").innerText = conditionText;
 
