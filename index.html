@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Studiu despre percepția imaginilor</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+    img { max-width: 100%; margin: 20px 0; }
+    .scale { display: flex; gap: 10px; justify-content: space-between; margin-bottom: 20px; }
+    .likert-label { margin-top: 10px; font-weight: bold; }
+    .hidden { display: none; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+<div id="step1">
+  <h2>Bine ai venit!</h2>
+  <p id="conditionText"></p>
+  <button onclick="startSurvey()">Începe</button>
+</div>
+
+<div id="step2" class="hidden">
+  <h3>Imaginea <span id="imageIndex"></span> din 5</h3>
+  <img id="currentImage" src="" alt="Imagine">
+  <form id="likertForm">
+    <div class="likert-label">1. Îmi place această imagine</div>
+    <div class="scale" id="scale1"></div>
+
+    <div class="likert-label">2. Această imagine este frumoasă</div>
+    <div class="scale" id="scale2"></div>
+
+    <div class="likert-label">3. Această imagine are elemente de noutate</div>
+    <div class="scale" id="scale3"></div>
+
+    <div class="likert-label">4. Înțeleg sensul acestei imagini</div>
+    <div class="scale" id="scale4"></div>
+
+    <button type="submit">Următoarea imagine</button>
+  </form>
+</div>
+
+<div id="step3" class="hidden">
+  <h3>Întrebare de verificare</h3>
+  <p>Ți se spusese la început că imaginile sunt create de:</p>
+  <label><input type="radio" name="manipCheck" value="uman" required> Un artist uman</label><br>
+  <label><input type="radio" name="manipCheck" value="ai"> Inteligență Artificială</label><br><br>
+  <button onclick="goToDebriefing()">Continuă</button>
+</div>
+
+<div id="step4" class="hidden">
+  <h3>Debriefing</h3>
+  <p>În realitate, imaginile pe care le-ai văzut au fost create atât de artiști umani, cât și de AI. Scopul a fost să investigăm percepțiile influențate de această informație.</p>
+  <button onclick="startGuessing()">Continuă</button>
+</div>
+
+<div id="step5" class="hidden">
+  <h3>Evaluare finală</h3>
+  <p>Te rugăm să indici cine crezi că este autorul fiecărei imagini:</p>
+  <img id="guessImage" src="" alt="Imagine de ghicit">
+  <form id="guessForm">
+    <label><input type="radio" name="authorGuess" value="uman" required> Artist uman</label><br>
+    <label><input type="radio" name="authorGuess" value="ai"> AI</label><br><br>
+    <button type="submit">Următoarea</button>
+  </form>
+</div>
+
+<div id="thankYou" class="hidden">
+  <h2>Mulțumim pentru participare!</h2>
+  <p>Răspunsurile tale au fost înregistrate.</p>
+</div>
+
+<script>
+  const allImages = [
+    ...Array.from({ length: 10 }, (_, i) => ({ path: `images/uman${i + 1}.jpg`, realAuthor: "uman" })),
+    ...Array.from({ length: 10 }, (_, i) => ({ path: `images/ai${i + 1}.jpg`, realAuthor: "ai" }))
+  ];
+  const shuffledImages = allImages.sort(() => Math.random() - 0.5);
+  const conditionAssigned = Math.random() < 0.5 ? "uman" : "ai";
+  const conditionText = conditionAssigned === "uman" ?
+    "Imaginile pe care le vei vedea au fost create de un artist uman." :
+    "Imaginile pe care le vei vedea au fost create de inteligență artificială (AI).";
+
+  document.getElementById("conditionText").innerText = conditionText;
+
+  const selectedImages = shuffledImages.slice(0, 5);
+  const guessImages = shuffledImages.slice(5, 9);
+
+  let currentImageIndex = 0;
+  let responses = [];
+  let guesses = [];
+  let manipulationCheck = "";
+
+  function startSurvey() {
+    document.getElementById("step1").classList.add("hidden");
+    document.getElementById("step2").classList.remove("hidden");
+    ["scale1", "scale2", "scale3", "scale4"].forEach(id => createScale(id));
+    loadImage();
+  }
+
+  function createScale(id) {
+    const container = document.getElementById(id);
+    for (let i = 1; i <= 7; i++) {
+      const label = document.createElement("label");
+      label.innerHTML = `<input type="radio" name="${id}" value="${i}" required> ${i}`;
+      container.appendChild(label);
+    }
+  }
+
+  function loadImage() {
+    document.getElementById("imageIndex").innerText = currentImageIndex + 1;
+    document.getElementById("currentImage").src = selectedImages[currentImageIndex].path;
+  }
+
+  document.getElementById("likertForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    responses.push({
+      image: selectedImages[currentImageIndex].path,
+      realAuthor: selectedImages[currentImageIndex].realAuthor,
+      conditionTold: conditionAssigned,
+      ratings: {
+        appreciation: formData.get("scale1"),
+        beauty: formData.get("scale2"),
+        novelty: formData.get("scale3"),
+        meaning: formData.get("scale4")
+      }
+    });
+    e.target.reset();
+    currentImageIndex++;
+    if (currentImageIndex < selectedImages.length) {
+      loadImage();
+    } else {
+      document.getElementById("step2").classList.add("hidden");
+      document.getElementById("step3").classList.remove("hidden");
+    }
+  });
+
+  function goToDebriefing() {
+    const checked = document.querySelector("input[name='manipCheck']:checked");
+    if (!checked) return alert("Selectează o opțiune!");
+    manipulationCheck = checked.value;
+    document.getElementById("step3").classList.add("hidden");
+    document.getElementById("step4").classList.remove("hidden");
+  }
+
+  function startGuessing() {
+    document.getElementById("step4").classList.add("hidden");
+    document.getElementById("step5").classList.remove("hidden");
+    loadGuessImage();
+  }
+
+  let currentGuessIndex = 0;
+
+  function loadGuessImage() {
+    document.getElementById("guessImage").src = guessImages[currentGuessIndex].path;
+  }
+
+  document.getElementById("guessForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const guess = document.querySelector("input[name='authorGuess']:checked").value;
+    guesses.push({
+      image: guessImages[currentGuessIndex].path,
+      realAuthor: guessImages[currentGuessIndex].realAuthor,
+      userGuess: guess
+    });
+    e.target.reset();
+    currentGuessIndex++;
+    if (currentGuessIndex < guessImages.length) {
+      loadGuessImage();
+    } else {
+      document.getElementById("step5").classList.add("hidden");
+      document.getElementById("thankYou").classList.remove("hidden");
+      console.log("Răspunsuri:", responses);
+      console.log("Manipulation check:", manipulationCheck);
+      console.log("Guessing:", guesses);
+      // Aici se poate adăuga cod pentru trimiterea datelor în Google Sheets
+    }
+  });
+</script>
+</body>
+</html>
