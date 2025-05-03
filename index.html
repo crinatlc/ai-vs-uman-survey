@@ -141,9 +141,9 @@
     if (!age || !gender) return;
     participantInfo.age = age;
     participantInfo.gender = gender;
-    document.getElementById("demographicForm").classList.add("hidden");
-    document.getElementById("step1").classList.remove("hidden");
   });
+  document.getElementById("demographicForm").classList.add("hidden");
+  document.getElementById("step1").classList.remove("hidden");
   function startSurvey() {
     document.getElementById("step2").classList.remove("hidden");
     ["scale1", "scale2", "scale3", "scale4"].forEach(id => createScale(id));
