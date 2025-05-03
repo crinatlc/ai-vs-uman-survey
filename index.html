@@ -13,7 +13,7 @@
   </style>
 </head>
 <body>
-<div id="consentForm">
+<div id="consentForm" class="hidden">
   <h2>Consimțământ informat</h2>
   <p>Sunteți invitat să participați la un studiu referitor la percepția artei vizuale în contextul evoluției Inteligenței Artificiale.<br><br>
   Pentru a putea completa chestionarul, trebuie să aveți minim 18 ani.<br><br>
@@ -127,6 +127,25 @@
   let guesses = [];
   let manipulationCheck = "";
 
+  function checkConsent() {
+    if (!document.getElementById("consentCheckbox").checked) {
+      alert("Trebuie să fii de acord pentru a continua.");
+      return;
+    }
+    document.getElementById("consentForm").classList.add("hidden");
+    document.getElementById("demographicForm").classList.remove("hidden");
+  }
+
+  document.getElementById("demographics").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    if (!age || !gender) return;
+    participantInfo.age = age;
+    participantInfo.gender = gender;
+    document.getElementById("demographicForm").classList.add("hidden");
+    document.getElementById("step1").classList.remove("hidden");
+  });
   function startSurvey() {
     document.getElementById("step1").classList.add("hidden");
     document.getElementById("step2").classList.remove("hidden");
