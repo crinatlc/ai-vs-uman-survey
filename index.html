@@ -149,6 +149,7 @@
 });
 
   function startSurvey() {
+    document.getElementById("step1").classList.add("hidden");
     document.getElementById("step2").classList.remove("hidden");
     ["scale1", "scale2", "scale3", "scale4"].forEach(id => createScale(id));
     loadImage();
