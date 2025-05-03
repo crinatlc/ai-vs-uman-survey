@@ -48,8 +48,8 @@
   </form>
 </div>
 
-<div id="step1">
-  <h2>Bine ai venit!</h2>
+<div id="step1" class="hidden">
+  <h2>Bine ai venit! </h2>
   <p id="conditionText"></p>
   <button onclick="startSurvey()">Începe</button>
 </div>
@@ -131,6 +131,7 @@
       return;
     }
     document.getElementById("consentForm").classList.add("hidden");
+    document.getElementById("step1").classList.add("hidden");
     document.getElementById("demographicForm").classList.remove("hidden");
   }
 
