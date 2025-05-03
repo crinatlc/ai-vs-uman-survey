@@ -13,6 +13,42 @@
   </style>
 </head>
 <body>
+<div id="consentForm">
+  <h2>Consimțământ informat</h2>
+  <p>Sunteți invitat să participați la un studiu referitor la percepția artei vizuale în contextul evoluției Inteligenței Artificiale.<br><br>
+  Pentru a putea completa chestionarul, trebuie să aveți minim 18 ani.<br><br>
+  Participarea la acest studiu presupune răspunsul la o serie de întrebări despre preferințele dumneavoastră, de aceea nu există răspunsuri corecte sau greșite.<br><br>
+  Timpul necesar pentru răspunsul la întrebări este de aproximativ 10 minute.<br><br>
+  Chestionarul este anonim. Doar membrii echipei de cercetare vor avea acces la rezultatul chestionarului. Analiza datelor obținute prin chestionar se va face prin metode statistice care nu permit divulgarea niciunei informații cu privire la persoana sau opiniile dumneavoastră.<br><br>
+  Participarea dumneavoastră în acest studiu este voluntară.<br><br>
+  Acest tip de studiu nu presupune riscuri. Vă puteți retrage în orice moment din studiu fără să existe consecințe.<br><br>
+  Dacă aveți întrebări, cu privire la acest studiu puteți să vă adresați echipei de cercetare:<br>
+  - Cristina Răulea (cristina.raulea@ulbsibiu.ro)<br>
+  - Alexandra Diana Pribeanu (diana.pribeanu@gmail.com)<br>
+  - Crina Tölcséres (baciu.crina@gmail.com)</p>
+
+  <label><input type="checkbox" id="consentCheckbox"> Sunt de acord să particip la acest studiu</label><br><br>
+  <button onclick="checkConsent()">Continuă</button>
+</div>
+
+<div id="demographicForm" class="hidden">
+  <h2>Date demografice</h2>
+  <form id="demographics">
+    <label for="age">Vârsta:</label><br>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <label for="gender">Gen:</label><br>
+    <select id="gender" name="gender" required>
+      <option value="">Selectează</option>
+      <option value="feminin">Feminin</option>
+      <option value="masculin">Masculin</option>
+      <option value="altul">Altul</option>
+      <option value="nu_doresc">Nu doresc să răspund</option>
+    </select><br><br>
+
+    <button type="submit">Continuă</button>
+  </form>
+</div>
 
 <div id="step1">
   <h2>Bine ai venit!</h2>
