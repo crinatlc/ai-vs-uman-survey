@@ -125,6 +125,7 @@
 
   let currentImageIndex = 0;
   let responses = [];
+  let responsesold = [];
   let guesses = [];
   let manipulationCheck = "";
 
@@ -175,7 +176,8 @@
   document.getElementById("likertForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    responses.push({
+    
+    responsesold.push({
       image: selectedImages[currentImageIndex].path,
       realAuthor: selectedImages[currentImageIndex].realAuthor,
       conditionTold: conditionAssigned,
@@ -186,6 +188,19 @@
         meaning: formData.get("scale4")
       }
     });
+
+    responses.push(JSON.parse(JSON.stringify({
+      image: selectedImages[currentImageIndex].path,
+      realAuthor: selectedImages[currentImageIndex].realAuthor,
+      conditionTold: conditionAssigned,
+      ratings: {
+        appreciation: formData.get("scale1"),
+        beauty: formData.get("scale2"),
+        novelty: formData.get("scale3"),
+        meaning: formData.get("scale4")
+      }
+    })));
+
     e.target.reset();
     currentImageIndex++;
     if (currentImageIndex < selectedImages.length) {
