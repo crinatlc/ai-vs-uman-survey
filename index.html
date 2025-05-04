@@ -248,7 +248,7 @@
           age: 30,
           gender: "feminin",
           condition: "ai",
-          responses: responses
+          responses: JSON.stringify(JSON.parse(responses))
         }),
         headers: {
           "Content-Type": "application/json"
