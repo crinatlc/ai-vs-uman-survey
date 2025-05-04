@@ -52,7 +52,6 @@
   <h2>Bine ai venit! </h2>
   <p id="conditionText"></p>
   <button onclick="startSurvey()">Începe</button>
-  <button onclick="test()">salveaza</button>
 </div>
 
 <div id="step2" class="hidden">
@@ -125,7 +124,6 @@
 
   let currentImageIndex = 0;
   let responses = [];
-  let responsesold = [];
   let guesses = [];
   let manipulationCheck = "";
 
@@ -177,18 +175,6 @@
     e.preventDefault();
     const formData = new FormData(e.target);
     
-    responsesold.push({
-      image: selectedImages[currentImageIndex].path,
-      realAuthor: selectedImages[currentImageIndex].realAuthor,
-      conditionTold: conditionAssigned,
-      ratings: {
-        appreciation: formData.get("scale1"),
-        beauty: formData.get("scale2"),
-        novelty: formData.get("scale3"),
-        meaning: formData.get("scale4")
-      }
-    });
-
     responses.push(JSON.parse(JSON.stringify({
       image: selectedImages[currentImageIndex].path,
       realAuthor: selectedImages[currentImageIndex].realAuthor,
@@ -257,7 +243,7 @@
   function test() {
 
 
-        fetch("https://script.google.com/macros/s/AKfycbxS72lXklsgM-NtM6Z4EfTZNFJBMoQ4HSJW9qn-wY-gO0UfkhifBrkhmI0Qlq4kp4Ms/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbzs8En1pM1gB8RAkocZ48Jmwvn3bxgOF9zvkwsczhPvdp67mibp8mrw_ZWwwPMlmO0w/exec", {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify({
