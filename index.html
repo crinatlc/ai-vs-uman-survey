@@ -256,15 +256,15 @@
 
   function test() {
 
-      responses.forEach(response =>{
-        fetch("https://script.google.com/macros/s/AKfycbxxPYKU88P3lykEa94I9uSQQwU1hxhIwfJTE9ueFwQu42FLH5jnTyO8eFeWwfDG409T/exec", {
+
+        fetch("https://script.google.com/macros/s/AKfycbxS72lXklsgM-NtM6Z4EfTZNFJBMoQ4HSJW9qn-wY-gO0UfkhifBrkhmI0Qlq4kp4Ms/exec", {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify({
           age: 30,
           gender: "feminin",
           condition: "ai",
-          responses: JSON.stringify(response)
+          responses: responses
         }),
         headers: {
           "Content-Type": "application/json"
@@ -275,7 +275,7 @@
         alert("A apărut o eroare la salvare. Încearcă din nou.");
         console.error(err);
       }); 
-    });
+
   }
 </script>
 </body>
