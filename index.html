@@ -126,6 +126,8 @@
   let responses = [];
   let guesses = [];
   let manipulationCheck = "";
+  let age = null;
+  let gender = null;
 
   function checkConsent() {
     if (!document.getElementById("consentCheckbox").checked) {
@@ -138,8 +140,8 @@
 
   document.getElementById("demographics").addEventListener("submit", function(e) {
   e.preventDefault();
-  const age = document.getElementById("age").value;
-  const gender = document.getElementById("gender").value;
+  age = document.getElementById("age").value;
+  gender = document.getElementById("gender").value;
 
   if (!age || !gender) {
     alert("Te rog să completezi toate câmpurile pentru a continua.");
@@ -247,9 +249,8 @@
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify({
-          age: 30,
-          gender: "feminin",
-          condition: "ai",
+          age: age,
+          gender: gender,
           responses: responses
         }),
         headers: {
