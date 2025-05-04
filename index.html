@@ -261,6 +261,7 @@
     } else {
       fetch("https://script.google.com/macros/s/AKfycbw2SZL8cwjO443HoDQVq8LApPs4hAtwwzTP6rdS1DJBgVtXLjfpkiKYH8Eplq_pkSVa/exec", {
         method: "POST",
+        mode: "no-cors",
         body: JSON.stringify({
           age: participantInfo.age,
           gender: participantInfo.gender,
