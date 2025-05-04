@@ -245,13 +245,16 @@
   function test() {
 
 
-        fetch("https://script.google.com/macros/s/AKfycbzs8En1pM1gB8RAkocZ48Jmwvn3bxgOF9zvkwsczhPvdp67mibp8mrw_ZWwwPMlmO0w/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbxDf1lEByBAHHkz88w3tCc5Ib5L8hGXpNfKlHIjETQ2Hhw7o2eyb_sKp1uDiyYGiKQC/exec", {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify({
           age: age,
           gender: gender,
-          responses: responses
+          responses: responses,
+          manipulationCheck: manipulationCheck,
+          guesses: guesses
+
         }),
         headers: {
           "Content-Type": "application/json"
