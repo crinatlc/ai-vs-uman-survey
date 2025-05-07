@@ -55,7 +55,7 @@
 </div>
 
 <div id="step2" class="hidden">
-  <h3>Imaginea <span id="imageIndex"></span> din 5</h3>
+  <h3>Imaginea <span id="imageIndex"></span> din 6</h3>
   <img id="currentImage" src="" alt="Imagine">
   <form id="likertForm">
     <div class="likert-label">1. Îmi place această imagine</div>
@@ -119,8 +119,8 @@
 
   document.getElementById("conditionText").innerText = conditionText;
 
-  const selectedImages = shuffledImages.slice(0, 5);
-  const guessImages = shuffledImages.slice(5, 9);
+  const selectedImages = shuffledImages.slice(0, 6);
+  const guessImages = shuffledImages.slice(6, 10);
 
   let currentImageIndex = 0;
   let responses = [];
@@ -245,7 +245,7 @@
   function test() {
 
 
-        fetch("https://script.google.com/macros/s/AKfycbxDf1lEByBAHHkz88w3tCc5Ib5L8hGXpNfKlHIjETQ2Hhw7o2eyb_sKp1uDiyYGiKQC/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbzt3eX7VPGrA_6npvR6zL3L0t-ovq3MB_NT10lY45WOAYLtNYCC-Ini6LysZEWBheBN/exec", {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify({
