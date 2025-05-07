@@ -52,6 +52,7 @@
   <h2>Bine ai venit! </h2>
   <p id="conditionText"></p>
   <button onclick="startSurvey()">Începe</button>
+  <button onclick="test()">salveaza</button>
 </div>
 
 <div id="step2" class="hidden">
@@ -96,12 +97,14 @@
     <label><input type="radio" name="authorGuess" value="uman" required> Artist uman</label><br>
     <label><input type="radio" name="authorGuess" value="ai"> AI</label><br><br>
     <button type="submit">Următoarea</button>
+    
   </form>
 </div>
 
 <div id="thankYou" class="hidden">
   <h2>Mulțumim pentru participare!</h2>
   <p>Răspunsurile tale au fost înregistrate.</p>
+  <button onclick="test()">salveaza</button>
 </div>
 
 <script>
@@ -236,6 +239,50 @@
   });
   
   function submitResponse() {
+    const response = {
+      image: selectedImages[currentImageIndex].path,
+      realAuthor: selectedImages[currentImageIndex].realAuthor,
+      perceivedAuthor: conditionAssigned,
+      ratings: []
+    };
+
+    for (let i = 1; i <= 4; i++) {
+      const val = document.querySelector(`input[name=scale${i}]:checked`);
+      if (!val) {
+        alert("Te rugăm să răspunzi la toate întrebările.");
+        return;
+      }
+      response.ratings.push(parseInt(val.value));
+    }
+
+    responses.push(response);
+    currentImageIndex++;
+
+    if (currentImageIndex < selectedImages.length) {
+      loadImage();
+      ["scale1", "scale2", "scale3", "scale4"].forEach(id => createScale(id));
+    } else {
+      fetch("https://script.google.com/macros/s/AKfycbwnV_Lk9viVOhhRm6gB5K5rn3U4Ml7f42yP-ErUSj4XJPdoYz56ypWOdwIjfgmAiX68/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({
+          age: participantInfo.age,
+          gender: participantInfo.gender,
+          condition: conditionAssigned,
+          responses: responses
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(() => {
+        alert("Datele au fost salvate. Mulțumim pentru participare!");
+      }).catch(err => {
+        alert("A apărut o eroare la salvare. Încearcă din nou.");
+        console.error(err);
+      });
+    }
+  }
+  function test() {
     const response = {
       image: selectedImages[currentImageIndex].path,
       realAuthor: selectedImages[currentImageIndex].realAuthor,
