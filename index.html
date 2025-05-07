@@ -52,7 +52,6 @@
   <h2>Bine ai venit! </h2>
   <p id="conditionText"></p>
   <button onclick="startSurvey()">Începe</button>
-  <button onclick="test()">salveaza</button>
 </div>
 
 <div id="step2" class="hidden">
@@ -127,6 +126,8 @@
   let responses = [];
   let guesses = [];
   let manipulationCheck = "";
+  let age = null;
+  let gender = null;
 
   function checkConsent() {
     if (!document.getElementById("consentCheckbox").checked) {
@@ -139,8 +140,8 @@
 
   document.getElementById("demographics").addEventListener("submit", function(e) {
   e.preventDefault();
-  const age = document.getElementById("age").value;
-  const gender = document.getElementById("gender").value;
+  age = document.getElementById("age").value;
+  gender = document.getElementById("gender").value;
 
   if (!age || !gender) {
     alert("Te rog să completezi toate câmpurile pentru a continua.");
@@ -175,7 +176,8 @@
   document.getElementById("likertForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    responses.push({
+    
+    responses.push(JSON.parse(JSON.stringify({
       image: selectedImages[currentImageIndex].path,
       realAuthor: selectedImages[currentImageIndex].realAuthor,
       conditionTold: conditionAssigned,
@@ -185,7 +187,8 @@
         novelty: formData.get("scale3"),
         meaning: formData.get("scale4")
       }
-    });
+    })));
+
     e.target.reset();
     currentImageIndex++;
     if (currentImageIndex < selectedImages.length) {
@@ -238,82 +241,20 @@
     }
   });
   
-  function submitResponse() {
-    const response = {
-      image: selectedImages[currentImageIndex].path,
-      realAuthor: selectedImages[currentImageIndex].realAuthor,
-      perceivedAuthor: conditionAssigned,
-      ratings: []
-    };
 
-    for (let i = 1; i <= 4; i++) {
-      const val = document.querySelector(`input[name=scale${i}]:checked`);
-      if (!val) {
-        alert("Te rugăm să răspunzi la toate întrebările.");
-        return;
-      }
-      response.ratings.push(parseInt(val.value));
-    }
-
-    responses.push(response);
-    currentImageIndex++;
-
-    if (currentImageIndex < selectedImages.length) {
-      loadImage();
-      ["scale1", "scale2", "scale3", "scale4"].forEach(id => createScale(id));
-    } else {
-      fetch("https://script.google.com/macros/s/AKfycbwnV_Lk9viVOhhRm6gB5K5rn3U4Ml7f42yP-ErUSj4XJPdoYz56ypWOdwIjfgmAiX68/exec", {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify({
-          age: participantInfo.age,
-          gender: participantInfo.gender,
-          condition: conditionAssigned,
-          responses: responses
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(() => {
-        alert("Datele au fost salvate. Mulțumim pentru participare!");
-      }).catch(err => {
-        alert("A apărut o eroare la salvare. Încearcă din nou.");
-        console.error(err);
-      });
-    }
-  }
   function test() {
-    const response = {
-      image: selectedImages[currentImageIndex].path,
-      realAuthor: selectedImages[currentImageIndex].realAuthor,
-      perceivedAuthor: conditionAssigned,
-      ratings: []
-    };
 
-    for (let i = 1; i <= 4; i++) {
-      const val = document.querySelector(`input[name=scale${i}]:checked`);
-      if (!val) {
-        alert("Te rugăm să răspunzi la toate întrebările.");
-        return;
-      }
-      response.ratings.push(parseInt(val.value));
-    }
 
-    responses.push(response);
-    currentImageIndex++;
-
-    if (currentImageIndex < selectedImages.length) {
-      loadImage();
-      ["scale1", "scale2", "scale3", "scale4"].forEach(id => createScale(id));
-    } else {
-      fetch("https://script.google.com/macros/s/AKfycbwnV_Lk9viVOhhRm6gB5K5rn3U4Ml7f42yP-ErUSj4XJPdoYz56ypWOdwIjfgmAiX68/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbxDf1lEByBAHHkz88w3tCc5Ib5L8hGXpNfKlHIjETQ2Hhw7o2eyb_sKp1uDiyYGiKQC/exec", {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify({
-          age: participantInfo.age,
-          gender: participantInfo.gender,
-          condition: conditionAssigned,
-          responses: responses
+          age: age,
+          gender: gender,
+          responses: responses,
+          manipulationCheck: manipulationCheck,
+          guesses: guesses
+
         }),
         headers: {
           "Content-Type": "application/json"
@@ -323,8 +264,8 @@
       }).catch(err => {
         alert("A apărut o eroare la salvare. Încearcă din nou.");
         console.error(err);
-      });
-    }
+      }); 
+
   }
 </script>
 </body>
