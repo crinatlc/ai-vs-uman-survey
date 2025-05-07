@@ -114,8 +114,8 @@
   const shuffledImages = allImages.sort(() => Math.random() - 0.5);
   const conditionAssigned = Math.random() < 0.5 ? "uman" : "ai";
   const conditionText = conditionAssigned === "uman" ?
-    "Vă vor fi prezentate 5 imagini create de diferiți artiști (umani). Vă rugăm să le evaluați. Nu există răspunsuri corecte sau greșite, doar părerea dvs. contează. Răspundeți spontan, așa cum simțiți." :
-    "Vă vor fi prezentate 5 imagini generate cu ajutorul Inteligenței Artificiale (IA). Vă rugăm să le evaluați. Nu există răspunsuri corecte sau greșite, doar părerea dvs. contează. Răspundeți spontan, așa cum simțiți.";
+    "Vă vor fi prezentate 6 imagini create de diferiți artiști (umani). Vă rugăm să le evaluați. Nu există răspunsuri corecte sau greșite, doar părerea dvs. contează. Răspundeți spontan, așa cum simțiți." :
+    "Vă vor fi prezentate 6 imagini generate cu ajutorul Inteligenței Artificiale (IA). Vă rugăm să le evaluați. Nu există răspunsuri corecte sau greșite, doar părerea dvs. contează. Răspundeți spontan, așa cum simțiți.";
 
   document.getElementById("conditionText").innerText = conditionText;
 
@@ -245,7 +245,7 @@
   function test() {
 
 
-        fetch("https://script.google.com/macros/s/AKfycbzt3eX7VPGrA_6npvR6zL3L0t-ovq3MB_NT10lY45WOAYLtNYCC-Ini6LysZEWBheBN/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbzlMeU33Rp3Ei34exKa2d4GI6x_W2gCZ8wyzJiGwro6qawKA4GgkoRIppo_jncEMCSU/exec", {
         method: "POST",
         mode: "no-cors",
         body: JSON.stringify({
