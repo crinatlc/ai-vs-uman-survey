@@ -103,7 +103,7 @@
 <div id="thankYou" class="hidden">
   <h2>Mulțumim pentru participare!</h2>
   <p>Răspunsurile tale au fost înregistrate.</p>
-  <button onclick="test()">salveaza</button>
+  <!-- <button onclick="test()">salveaza</button> -->
 </div>
 
 <script>
@@ -238,11 +238,12 @@
       console.log("Manipulation check:", manipulationCheck);
       console.log("Guessing:", guesses);
       // Aici se poate adăuga cod pentru trimiterea datelor în Google Sheets
+      SaveInSheets();
     }
   });
   
 
-  function test() {
+  function SaveInSheets() {
 
 
         fetch("https://script.google.com/macros/s/AKfycbzlMeU33Rp3Ei34exKa2d4GI6x_W2gCZ8wyzJiGwro6qawKA4GgkoRIppo_jncEMCSU/exec", {
