@@ -203,7 +203,10 @@
   function goToDebriefing() {
     const checked = document.querySelector("input[name='manipCheck']:checked");
     if (!checked) return alert("Selectează o opțiune!");
-    manipulationCheck = checked.value;
+    if (checked.value == "nustiu")
+    {manipulationCheck = 2;}
+    else if (checked.value == conditionAssigned) {manipulationCheck = 1;}
+    else manipulationCheck = 0;
     document.getElementById("step3").classList.add("hidden");
     document.getElementById("step4").classList.remove("hidden");
   }
