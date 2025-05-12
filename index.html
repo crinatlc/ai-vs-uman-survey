@@ -58,16 +58,16 @@
   <h3>Imaginea <span id="imageIndex"></span> din 6</h3>
   <img id="currentImage" src="" alt="Imagine">
   <form id="likertForm">
-    <div class="likert-label">1. Îmi place această imagine <br><br> 1 - Dezacord Total ; 7 - Acord Total<br></div>
+    <div class="likert-label">1. Îmi place această imagine <br> 1 - Dezacord Total ; 7 - Acord Total<br><br></div>
     <div class="scale" id="scale1"></div>
 
-    <div class="likert-label">2. Această imagine este frumoasă <br><br> 1 - DezacordTotal; 7 - Acord Total<br></div>
+    <div class="likert-label">2. Această imagine este frumoasă <br> 1 - DezacordTotal; 7 - Acord Total<br><br></div>
     <div class="scale" id="scale2"></div>
 
-    <div class="likert-label">3. Această imagine are elemente de noutate<br><br> 1 - Dezacord Total; 7 - cord Total<br></div>
+    <div class="likert-label">3. Această imagine are elemente de noutate<br> 1 - Dezacord Total; 7 - cord Total<br><br></div>
     <div class="scale" id="scale3"></div>
 
-    <div class="likert-label">4. Înțeleg sensul acestei imagini <br><br> 1 - Dezacord Total; 7 - Acord Total<br></div>
+    <div class="likert-label">4. Înțeleg sensul acestei imagini<br> 1 - Dezacord Total; 7 - Acord Total<br><br></div>
     <div class="scale" id="scale4"></div>
 
     <button type="">Următoarea imagine</button>
@@ -115,8 +115,8 @@
   const shuffledImages = allImages.sort(() => Math.random() - 0.5);
   const conditionAssigned = Math.random() < 0.5 ? "uman" : "ai";
   const conditionText = conditionAssigned === "uman" ?
-    "Vă vor fi prezentate 6 imagini create de diferiți artiști (umani). Vă rugăm să le evaluați pe o scală de la 1 la 7, unde 1 - reprezinta dezacord total, iar 7 - reprezinta acord total. Răspundeți spontan, așa cum simțiți." :
-    "Vă vor fi prezentate 6 imagini generate cu ajutorul Inteligenței Artificiale (IA). Vă rugăm să le evaluați pe o scală de la 1 la 7, unde 1 reprezinta dezacord Total, iar 7 reprezinta acord total. Răspundeți spontan, așa cum simțiți.";
+    "Vă vor fi prezentate 6 imagini create de diferiți artiști (umani).Vă rugăm să le evaluați pe o scală de la 1 la 7, unde 1 - reprezinta dezacord total, iar 7 - reprezinta acord total. Răspundeți spontan, așa cum simțiți." :
+    "Vă vor fi prezentate 6 imagini generate cu ajutorul Inteligenței Artificiale (IA). Vă rugăm să le evaluați pe o scală de la 1 la 7, unde 1 reprezinta dezacord total, iar 7 reprezinta acord total. Răspundeți spontan, așa cum simțiți.";
 
   document.getElementById("conditionText").innerText = conditionText;
 
