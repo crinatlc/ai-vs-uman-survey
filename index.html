@@ -104,7 +104,7 @@
 <div id="thankYou" class="hidden">
   <h2>Mulțumim pentru participare!</h2>
   <p>Răspunsurile tale au fost înregistrate.</p>
-  <!-- <button onclick="test()">salveaza</button> -->
+  <button onclick="SaveInSheets()">salveaza</button>
 </div>
 
 <script>
@@ -238,7 +238,7 @@
       console.log("Răspunsuri:", responses);
       console.log("Manipulation check:", manipulationCheck);
       console.log("Guessing:", guesses);
-      SaveInSheets();
+      //SaveInSheets();
     }
   });
   
@@ -261,9 +261,9 @@
           "Content-Type": "application/json"
         }
       }).then(() => {
-        //alert("Datele au fost salvate. Mulțumim pentru participare!");
+        alert("Datele au fost salvate. Mulțumim pentru participare!");
       }).catch(err => {
-        //alert("A apărut o eroare la salvare. Încearcă din nou.");
+        alert("A apărut o eroare la salvare. Încearcă din nou.");
         console.error(err);
       }); 
 
