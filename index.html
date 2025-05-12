@@ -19,10 +19,8 @@
   <h2>Consimțământ informat</h2>
   <p>Sunteți invitat să participați la un studiu referitor la percepția artei vizuale în contextul evoluției Inteligenței Artificiale.<br><br>
   Pentru a putea completa chestionarul, trebuie să aveți minim 18 ani.<br><br>
-  Participarea la acest studiu presupune răspunsul la o serie de întrebări despre preferințele dumneavoastră, de aceea nu există răspunsuri corecte sau greșite.<br><br>
   Timpul necesar pentru răspunsul la întrebări este de aproximativ 10 minute.<br><br>
-  Chestionarul este anonim. Doar membrii echipei de cercetare vor avea acces la rezultatul chestionarului. Analiza datelor obținute prin chestionar se va face prin metode statistice care nu permit divulgarea niciunei informații cu privire la persoana sau opiniile dumneavoastră.<br><br>
-  Participarea dumneavoastră în acest studiu este voluntară.<br><br>
+  Chestionarul este anonim, iar participarea este voluntară. Doar membrii echipei de cercetare vor avea acces la rezultatul chestionarului. Analiza datelor obținute prin chestionar se va face prin metode statistice care nu permit divulgarea niciunei informații cu privire la persoana sau opiniile dumneavoastră.<br><br>
   Acest tip de studiu nu presupune riscuri. Vă puteți retrage în orice moment din studiu fără să existe consecințe.<br><br>
   Dacă aveți întrebări, cu privire la acest studiu puteți să vă adresați echipei de cercetare:<br>
   - Cristina Răulea (cristina.raulea@ulbsibiu.ro)<br>
@@ -60,16 +58,16 @@
   <h3>Imaginea <span id="imageIndex"></span> din 6</h3>
   <img id="currentImage" src="" alt="Imagine">
   <form id="likertForm">
-    <div class="likert-label">1. Îmi place această imagine</div>
+    <div class="likert-label">1. Îmi place această imagine <br> 0 - Dezacord Total ; 7 - Acord Total</div>
     <div class="scale" id="scale1"></div>
 
-    <div class="likert-label">2. Această imagine este frumoasă</div>
+    <div class="likert-label">2. Această imagine este frumoasă <br> 0 - DezacordTotal; 7 - Acord Total</div>
     <div class="scale" id="scale2"></div>
 
-    <div class="likert-label">3. Această imagine are elemente de noutate</div>
+    <div class="likert-label">3. Această imagine are elemente de noutate <br> 0 - Dezacord Total; 7 - cord Total</div>
     <div class="scale" id="scale3"></div>
 
-    <div class="likert-label">4. Înțeleg sensul acestei imagini</div>
+    <div class="likert-label">4. Înțeleg sensul acestei imagini <br> 0 - Dezacord Total; 7 - Acord Total</div>
     <div class="scale" id="scale4"></div>
 
     <button type="">Următoarea imagine</button>
@@ -81,12 +79,13 @@
   <p>Ți se spusese la început că imaginile sunt create de:</p>
   <label><input type="radio" name="manipCheck" value="uman" required> Un artist uman</label><br>
   <label><input type="radio" name="manipCheck" value="ai"> Inteligență Artificială</label><br><br>
+  <label><input type="radio" name="manipCheck" value="nustiu"> Nu știu</label><br><br>
   <button onclick="goToDebriefing()">Continuă</button>
 </div>
 
 <div id="step4" class="hidden">
   <h3>Debriefing</h3>
-  <p>În realitate, imaginile pe care le-ai văzut au fost create atât de artiști umani, cât și de AI. Scopul a fost să investigăm percepțiile influențate de această informație.</p>
+  <p>În realitate, imaginile pe care le-ai văzut au fost create atât de artiști umani, cât și de AI. Scopul a fost să investigăm percepțiile influențate de autorul declarat.</p>
   <button onclick="startGuessing()">Continuă</button>
 </div>
 
@@ -116,8 +115,8 @@
   const shuffledImages = allImages.sort(() => Math.random() - 0.5);
   const conditionAssigned = Math.random() < 0.5 ? "uman" : "ai";
   const conditionText = conditionAssigned === "uman" ?
-    "Vă vor fi prezentate 6 imagini create de diferiți artiști (umani). Vă rugăm să le evaluați. Nu există răspunsuri corecte sau greșite, doar părerea dvs. contează. Răspundeți spontan, așa cum simțiți." :
-    "Vă vor fi prezentate 6 imagini generate cu ajutorul Inteligenței Artificiale (IA). Vă rugăm să le evaluați. Nu există răspunsuri corecte sau greșite, doar părerea dvs. contează. Răspundeți spontan, așa cum simțiți.";
+    "Vă vor fi prezentate 6 imagini create de diferiți artiști (umani). Vă rugăm să le evaluați pe o scală de la 0 la 7, unde 0 reprezinta Dezacord Total, iar 7 reprezinta Acord Total. Răspundeți spontan, așa cum simțiți." :
+    "Vă vor fi prezentate 6 imagini generate cu ajutorul Inteligenței Artificiale (IA). Vă rugăm să le evaluați pe o scală de la 0 la 7, unde 0 reprezinta Dezacord Total, iar 7 reprezinta Acord Total. Răspundeți spontan, așa cum simțiți.";
 
   document.getElementById("conditionText").innerText = conditionText;
 
@@ -239,7 +238,6 @@
       console.log("Răspunsuri:", responses);
       console.log("Manipulation check:", manipulationCheck);
       console.log("Guessing:", guesses);
-      // Aici se poate adăuga cod pentru trimiterea datelor în Google Sheets
       SaveInSheets();
     }
   });
